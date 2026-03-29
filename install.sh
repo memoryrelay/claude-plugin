@@ -148,3 +148,41 @@ echo "  cat > <project>/.mcp.json << 'EOF'"
 echo '  {"mcpServers":{"MemoryRelay":{"command":"memoryrelay-mcp",'
 echo "  \"env\":{\"MEMORYRELAY_API_KEY\":\"<key>\",\"MEMORYRELAY_AGENT_ID\":\"<uuid>\"}}}}"
 echo "  EOF"
+
+# ── Optional: Install OpenClaw plugin with local cache support ───────────────
+install_openclaw_plugin() {
+  local OPENCLAW_EXT="$HOME/.openclaw/extensions/plugin-memoryrelay-ai"
+  local VERSION="${MEMORYRELAY_PLUGIN_VERSION:-latest}"
+
+  echo ">> [Optional] Installing OpenClaw plugin v${VERSION}..."
+  
+  # Fresh install — remove old version first
+  rm -rf "$OPENCLAW_EXT"
+  
+  local TMP=$(mktemp -d)
+  cd "$TMP" || return
+  
+  if npm pack "@memoryrelay/plugin-memoryrelay-ai@${VERSION}" 2>/dev/null; then
+    tar -xzf memoryrelay-plugin-memoryrelay-ai-*.tgz
+    cp -r package "$OPENCLAW_EXT"
+    
+    # Install native dependencies (better-sqlite3 for local cache)
+    echo "   Installing plugin dependencies (enables local cache)..."
+    cd "$OPENCLAW_EXT" && npm install --omit=dev --silent 2>/dev/null || \
+      echo "   ⚠️  npm install failed — plugin works in API-only mode"
+    cd ~
+    echo "✅ OpenClaw plugin installed with local cache support"
+  else
+    echo "⚠️  OpenClaw plugin install failed — skip and install manually"
+  fi
+  
+  rm -rf "$TMP"
+  cd ~
+}
+
+# Run if openclaw is installed
+if command -v openclaw &>/dev/null; then
+  install_openclaw_plugin
+  # Restart gateway to load new plugin
+  openclaw gateway restart 2>/dev/null || true
+fi
