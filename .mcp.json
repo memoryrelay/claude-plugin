@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "memoryrelay": {
+      "command": "memoryrelay-mcp",
+      "env": {
+        "MEMORYRELAY_API_KEY": "${MEMORYRELAY_API_KEY}",
+        "MEMORYRELAY_AGENT_ID": "claude-code-sparck75"
+      }
+    }
+  }
+}

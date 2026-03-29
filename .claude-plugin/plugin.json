@@ -1,0 +1,12 @@
+{
+  "name": "memoryrelay",
+  "version": "1.0.0",
+  "description": "Seamless long-term memory for Claude Code — auto-session, auto-recall, auto-capture with privacy filtering via MemoryRelay API",
+  "author": {
+    "name": "sparck75",
+    "url": "https://github.com/memoryrelay"
+  },
+  "repository": "https://github.com/memoryrelay/claude-plugin",
+  "license": "MIT",
+  "keywords": ["memory", "memoryrelay", "persistence", "context", "recall"]
+}
