@@ -1,7 +1,7 @@
 {
   "name": "memoryrelay",
   "version": "1.0.0",
-  "description": "Seamless long-term memory for Claude Code — auto-session, auto-recall, auto-capture with privacy filtering via MemoryRelay API",
+  "description": "DEPRECATED: this plugin calls MemoryRelay tools that no longer exist. It moved to github.com/memoryrelay/api/tree/main/plugins/memoryrelay; install with: claude plugin marketplace add memoryrelay/memoryrelay-marketplace && claude plugin install memoryrelay@memoryrelay",
   "author": {
     "name": "sparck75",
     "url": "https://github.com/memoryrelay"
